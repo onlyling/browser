@@ -3,7 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-		<title>浏览器测试</title>
+		<title>浏览器检测</title>
+		<meta name="description" content="通过Useragent和浏览器环境变量等方式判断浏览器、系统及设备类型，是页面判断检测的常用工具。">
+		<meta name="keywords" content="Useragent,用户代理,浏览器判断,浏览器类型,浏览器信息">
 		<script src="Browser.js"></script>
 		<style>
 			a{
@@ -115,13 +117,14 @@
 			</div>
 			<div class="footer">
 				<a href="https://github.com/mumuy/browser" target="_blank">项目地址</a>
+				<a href="https://www.ip138.com/useragent/" target="_blank">Useragent分析</a>
 				<a href="/">返回首页</a>
 			</div>
 		</div>
 		<div style="display: none;">
-			<script src="http://s95.cnzz.com/z_stat.php?id=1258310068&web_id=1258310068"></script>
+			<script src="https://s95.cnzz.com/z_stat.php?id=1258310068&web_id=1258310068"></script>
 			<script>
-				document.writeln('<iframe src="http://passer-by.com/browser/stat.html?browser='+info.browser+'" width="" height=""></iframe>');
+				document.writeln('<iframe src="https://passer-by.com/browser/stat.html?browser='+info.browser+'&ua='+navigator.userAgent+'" width="" height=""></iframe>');
 			</script>
 		</div>
 	</body>
