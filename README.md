@@ -76,7 +76,7 @@ Vivo - Vivo浏览器
 
 Quark - 夸克浏览器
 
-Wechat - 微信手机客户端
+WeChat - 微信手机客户端
 
 Taobao - 淘宝手机客户端
 
