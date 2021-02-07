@@ -1,6 +1,6 @@
 {
   "name": "browser",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Useragent analysis tool.浏览器分析判断工具 - 用户代理、操作系统信息",
   "scripts": {
     "clean": "yarn autoclean --force",
