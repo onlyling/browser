@@ -1,4 +1,4 @@
-const Browser = require('../umd');
+import Browser from '../src';
 
 // Node.js 服务器端可以通过 http 请求头的 `User-Agent` 拿到一些信息
 
