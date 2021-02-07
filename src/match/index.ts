@@ -2,6 +2,7 @@ import { EngineMatchMap, Enginekeys } from './engine';
 import { OSMatchMap, OSkeys } from './os';
 import { DeviceMatchMap, Devicekeys } from './device';
 import { BrowserMatchMap, Browserkeys } from './browser';
+import { getChromeVision } from '../helper';
 
 export const HashKey = {
   engine: Enginekeys,
@@ -19,23 +20,24 @@ const MatchMap = {
 
 /**
  * 构建 match 对象
- * @param {string} ua userAgent
- * @param {Window} win window
- * @param {Navigator} nav navigator
- * @returns {Record<string, boolean>}
+ * @param ua userAgent
+ * @param win window
+ * @param nav navigator
  */
-export const buildMatch = (ua, win, nav) => {
-  const Match = {};
+export const buildMatch = (ua: string, win: Window, nav: Navigator) => {
+  const Match: Record<string, boolean> = {};
 
   Object.keys(MatchMap).forEach((key) => {
     const matchFN = MatchMap[key];
     Match[key] = matchFN(ua);
   });
 
-  const mime = function (option, value) {
-    const mimeTypes = nav.mimeTypes;
-    for (let mt in mimeTypes) {
-      if (mimeTypes[mt][option] == value) {
+  const mime = function (option: string, value: string) {
+    const { mimeTypes } = nav;
+    for (const mt in mimeTypes) {
+      const mimeType = mimeTypes[mt];
+      // @ts-ignore
+      if (mimeType && mimeType[option] === value) {
         return true;
       }
     }
@@ -45,13 +47,16 @@ export const buildMatch = (ua, win, nav) => {
   // 修正数据
   let is360 = false;
 
+  // @ts-ignore
   if (win.chrome) {
-    const chrome_vision = ua.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+    const chrome_vision = +getChromeVision(ua);
+    // @ts-ignore
     if (win.chrome.adblock2345 || win.chrome.common2345) {
       Match['2345Explorer'] = true;
     } else if (
       mime('type', 'application/360softmgrplugin') ||
       mime('type', 'application/mozilla-npqihooquicklogin') ||
+      // @ts-ignore
       (chrome_vision > 36 && win.showModalDialog)
     ) {
       is360 = true;
@@ -72,7 +77,9 @@ export const buildMatch = (ua, win, nav) => {
       Match['360SE'] = true;
     } else if (
       nav &&
+      // @ts-ignore
       typeof nav['connection'] !== 'undefined' &&
+      // @ts-ignore
       typeof nav['connection']['saveData'] == 'undefined'
     ) {
       Match['360SE'] = true;

@@ -1,14 +1,16 @@
+import { getChromeVision } from './helper';
+
 /**
  * 获取浏览器版本
- * @param {string} u userAgent
- * @param {string} browser 浏览器名称
+ * @param u userAgent
+ * @param browser 浏览器名称
  */
-export const getVersion = (u, browser) => {
+export const getVersion = (u: string, browser: string) => {
   /**
    * 浏览器版本集合
    * @type {Record<string, ()=>string>}
    */
-  const VersionMap = {
+  const VersionMap: Record<string, () => string> = {
     Safari: function () {
       return u.replace(/^.*Version\/([\d.]+).*$/, '$1');
     },
@@ -73,7 +75,7 @@ export const getVersion = (u, browser) => {
       return u.replace(/^.*QihooBrowser\/([\d.]+).*$/, '$1');
     },
     '360SE': function () {
-      var hash = {
+      const hash: Record<string, string> = {
         '78': '12.1',
         '69': '11.1',
         '63': '10.0',
@@ -83,12 +85,19 @@ export const getVersion = (u, browser) => {
         '31': '7.0',
         '21': '6.3',
       };
-      var chrome_vision = u.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      const chrome_vision = getChromeVision(u);
       return hash[chrome_vision] || '';
     },
     '360EE': function () {
-      var hash = { '78': '12.0', '69': '11.0', '63': '9.5', '55': '9.0', '50': '8.7', '30': '7.5' };
-      var chrome_vision = u.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      const hash: Record<string, string> = {
+        '78': '12.0',
+        '69': '11.0',
+        '63': '9.5',
+        '55': '9.0',
+        '50': '8.7',
+        '30': '7.5',
+      };
+      const chrome_vision = getChromeVision(u);
       return hash[chrome_vision] || '';
     },
     Maxthon: function () {
@@ -114,7 +123,7 @@ export const getVersion = (u, browser) => {
         .replace(/^.*SogouMobileBrowser\/([\d.]+).*$/, '$1');
     },
     LBBROWSER: function () {
-      var hash = {
+      const hash: Record<string, string> = {
         '57': '6.5',
         '49': '6.0',
         '46': '5.9',
@@ -124,12 +133,16 @@ export const getVersion = (u, browser) => {
         '29': '4.5',
         '21': '4.0',
       };
-      var chrome_vision = navigator.userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      // TODO 核实是否直接使用 `navigator`，Node.js 并不能直接用
+      // const chrome_vision = navigator.userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      const chrome_vision = getChromeVision(u);
       return hash[chrome_vision] || '';
     },
     '2345Explorer': function () {
-      var hash = { '69': '10.0', '55': '9.9' };
-      var chrome_vision = navigator.userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      const hash: Record<string, string> = { '69': '10.0', '55': '9.9' };
+      // TODO 核实是否直接使用 `navigator`，Node.js 并不能直接用
+      // const chrome_vision = navigator.userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1');
+      const chrome_vision = getChromeVision(u);
       return (
         hash[chrome_vision] ||
         u

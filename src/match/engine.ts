@@ -1,7 +1,7 @@
-import { buildMatchAndKeys } from '../helper';
+import { buildMatchAndKeys, BuildMatchAndKeysConfig } from '../helper';
 
 /** 浏览器内核配置 */
-const configs = [
+const configs: BuildMatchAndKeysConfig[] = [
   ['Trident', ['Trident', 'NET CLR']],
   ['Presto'],
   ['WebKit', ['AppleWebKit']],

@@ -1,22 +1,13 @@
-import { buildMatch, HashKey } from './match/index';
+import { buildMatch, HashKey } from './match';
 import { getOSVersion } from './match/os';
 import { getLanguage } from './language';
 import { getVersion } from './version';
+import { getGlobalWindow } from './helper';
 
 const Browser = (ua = '') => {
-  /**
-   * @type Window
-   */
-  const win = window || {};
-  /**
-   * @type Navigator
-   */
-  const nav = win.navigator || {};
-
-  /**
-   * userAgent
-   */
-  const userAgent = ua || nav.userAgent || '';
+  const win: Window = getGlobalWindow();
+  const nav: Navigator = win.navigator || {};
+  const userAgent: string = ua || nav.userAgent || '';
 
   /** 获取到的设备信息 */
   const info = {
@@ -34,17 +25,14 @@ const Browser = (ua = '') => {
 
   // 基础信息
   Object.keys(HashKey).forEach((tp) => {
-    /**
-     * @type string[]
-     */
-    const keys = HashKey[tp];
+    const keys = HashKey[tp as keyof typeof HashKey];
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       const value = Match[key];
 
       if (value) {
-        info[tp] = key;
+        info[tp as keyof typeof HashKey] = key;
       }
     }
   });
@@ -54,7 +42,7 @@ const Browser = (ua = '') => {
 
   // 数据修正
   if (info.browser === 'Chrome' && userAgent.match(/\S+Browser/)) {
-    info.browser = userAgent.match(/\S+Browser/)[0];
+    info.browser = (userAgent.match(/\S+Browser/) || [])[0] || '';
     info.version = userAgent.replace(/^.*Browser\/([\d.]+).*$/, '$1');
   }
 

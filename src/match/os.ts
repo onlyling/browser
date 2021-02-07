@@ -1,7 +1,7 @@
-import { buildMatchAndKeys } from '../helper';
+import { buildMatchAndKeys, BuildMatchAndKeysConfig } from '../helper';
 
 /** 平台和系统配置 */
-const configs = [
+const configs: BuildMatchAndKeysConfig[] = [
   ['Windows'],
   ['Linux', ['Linux', 'X11']],
   ['Mac OS', ['Macintosh']],
@@ -15,7 +15,7 @@ const configs = [
   ['Symbian'],
   ['iOS', ['like Mac OS X']],
   ['Chrome OS', ['CrOS']],
-  ['WebOS', ['hpwOS']]
+  ['WebOS', ['hpwOS']],
 ];
 
 const MatchAndKeys = buildMatchAndKeys(configs);
@@ -28,12 +28,11 @@ export const OSkeys = MatchAndKeys[1];
 
 /**
  * 系统版本查询集合
- * @type {Record<string, (u:string)=>string;>}
  */
-const OSVersionMap = {
+const OSVersionMap: Record<string, (u: string) => string> = {
   Windows: function (u) {
     const v = u.replace(/^Mozilla\/\d.0 \(Windows NT ([\d.]+);.*$/, '$1');
-    const hash = {
+    const hash: Record<string, string> = {
       '10': '10',
       '6.4': '10',
       '6.3': '8.1',
@@ -68,10 +67,10 @@ const OSVersionMap = {
 
 /**
  * 获取系统版本
- * @param {string} userAgent userAgent
- * @param {string} OSStr 系统
+ * @param userAgent userAgent
+ * @param OSStr 系统
  */
-export const getOSVersion = (userAgent, OSStr) => {
+export const getOSVersion = (userAgent: string, OSStr: string) => {
   let osVersion = '';
   const check = OSVersionMap[OSStr];
 

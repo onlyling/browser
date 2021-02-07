@@ -1,7 +1,7 @@
-import { buildMatchAndKeys } from '../helper';
+import { buildMatchAndKeys, BuildMatchAndKeysConfig } from '../helper';
 
 /** 浏览器内核配置 */
-const configs = [
+const configs: BuildMatchAndKeysConfig[] = [
   ['Safari'],
   ['Chrome', ['Chrome', 'CriOS']],
   ['IE', ['MSIE', 'Trident']],
